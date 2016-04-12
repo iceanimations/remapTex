@@ -6,8 +6,10 @@ Created on Apr 9, 2016
 import os.path as osp
 import sui
 import backend
-from PySide.QtGui import QLabel, QMessageBox, QColor
-from PySide.QtCore import Qt
+from uiContainer import uic
+from PyQt4.QtGui import QLabel, QMessageBox, QColor
+from PyQt4.QtCore import Qt
+import qtify_maya_window as qtfy
 import subprocess
 
 reload(backend)
@@ -15,9 +17,9 @@ reload(backend)
 rootPath = osp.dirname(osp.dirname(__file__))
 uiPath = osp.join(rootPath, 'ui')
  
-Form, Base = sui.loadUiType(osp.join(uiPath, 'main.ui'))
+Form, Base = uic.loadUiType(osp.join(uiPath, 'main.ui'))
 class Main(Form, Base):
-    def __init__(self, parent=sui.getMayaWindow()):
+    def __init__(self, parent=qtfy.getMayaWindow()):
         super(Main, self).__init__(parent)
         self.setupUi(self)
         self.setAttribute(Qt.WA_DeleteOnClose)
@@ -78,7 +80,7 @@ class Main(Form, Base):
                 pass
         self.populate()
 
-Form1, Base1 = sui.loadUiType(osp.join(uiPath, 'texture.ui'))
+Form1, Base1 = uic.loadUiType(osp.join(uiPath, 'texture.ui'))
 class Texture(Form1, Base1):
     def __init__(self, parent=None, path=None, items=None):
         super(Texture, self).__init__(parent)
@@ -106,7 +108,7 @@ class Texture(Form1, Base1):
             self.fileBox.addItem(item.getFileName())
             if not item.fileExists():
                 self.fileBox.setItemData(i+1, QColor(Qt.green), Qt.BackgroundRole)
-            self.fileBox.view().setFixedWidth(self.fileBox.sizeHint().width())
+        self.fileBox.view().setFixedWidth(self.fileBox.sizeHint().width())
         
     def callRemap(self):
         self.remap()
