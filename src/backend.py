@@ -36,6 +36,13 @@ def getFileNodes():
             items.append(FileNode(node))
     return items
 
+def getRSSprites():
+    items = []
+    for node in pc.ls(exactType=pc.nt.RedshiftSprite):
+        if node.tex0.get():
+            items.append(RedshiftSprite(node))
+    return items
+
 class Texture(object):
     def __init__(self, node=None):
         super(Texture, self).__init__()
@@ -73,14 +80,24 @@ class Texture(object):
         else:
             return osp.exists(filepath)
         return False
-    
+
     def isUDIM(self, path):
         return True if '<udim>' in path.lower() else False
-        
+
+class RedshiftSprite(Texture):
+    def __init__(self, node=None):
+        super(RedshiftSprite, self).__init__(node)
+
+    def setPath(self, path):
+        self.node.tex0.set(path.replace('\\', '/'))
+
+    def getPath(self):
+        return osp.normpath(self.node.tex0.get())
+
 class FileNode(Texture):
     def __init__(self, node=None):
         super(FileNode, self).__init__(node)
-        
+
     def setPath(self, path):
         self.node.ftn.set(path.replace('\\', '/'))
     

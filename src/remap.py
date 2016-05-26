@@ -66,11 +66,13 @@ class Main(Form, Base):
         normalMapMappings = self.getMappings(backend.getNormalMaps())
         iesLightMappings = self.getMappings(backend.getIESLights())
         domeLightMappings = self.getMappings(backend.getDomeLights())
+        spriteMappings = self.getMappings(backend.getRSSprites())
         
-        self.addTextures('File Nodes', fileNodeMappings)
-        self.addTextures('Redshift Normal Maps', normalMapMappings)
-        self.addTextures('Redshift IES Lights', iesLightMappings)
-        self.addTextures('Redshift Dome Lights', domeLightMappings)
+        self.addTextures('File Node', fileNodeMappings)
+        self.addTextures('Redshift Normal Map', normalMapMappings)
+        self.addTextures('Redshift IES Light', iesLightMappings)
+        self.addTextures('Redshift Dome Light', domeLightMappings)
+        self.addTextures('Reshift Sprite', spriteMappings)
         
     def remap(self):
         for item in self.items:
