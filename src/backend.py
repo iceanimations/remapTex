@@ -10,23 +10,29 @@ import re
 
 def getNormalMaps():
     items = []
-    for node in pc.ls(exactType=pc.nt.RedshiftNormalMap):
-        if node.tex0.get():
-            items.append(NormalMap(node))
+    try AttributeError:
+        for node in pc.ls(exactType=pc.nt.RedshiftNormalMap):
+            if node.tex0.get():
+                items.append(NormalMap(node))
+    except: pass
     return items
 
 def getDomeLights():
     items = []
-    for node in pc.ls(exactType=pc.nt.RedshiftDomeLight):
-        if node.tex0.get():
-            items.append(DomeLight(node))
+    try AttributeError:
+        for node in pc.ls(exactType=pc.nt.RedshiftDomeLight):
+            if node.tex0.get():
+                items.append(DomeLight(node))
+    except: pass
     return items
 
 def getIESLights():
     items = []
-    for node in pc.ls(exactType=pc.nt.RedshiftIESLight):
-        if node.profile.get():
-            items.append(IESLight(node))
+    try AttributeError:
+        for node in pc.ls(exactType=pc.nt.RedshiftIESLight):
+            if node.profile.get():
+                items.append(IESLight(node))
+    except: pass
     return items
 
 def getFileNodes():
@@ -38,9 +44,11 @@ def getFileNodes():
 
 def getRSSprites():
     items = []
-    for node in pc.ls(exactType=pc.nt.RedshiftSprite):
-        if node.tex0.get():
-            items.append(RedshiftSprite(node))
+    try AttributeError:
+        for node in pc.ls(exactType=pc.nt.RedshiftSprite):
+            if node.tex0.get():
+                items.append(RedshiftSprite(node))
+    except: pass
     return items
 
 class Texture(object):
