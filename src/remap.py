@@ -5,13 +5,13 @@ Created on Apr 9, 2016
 '''
 import os.path as osp
 import sui
-import backend
+
 from uiContainer import uic
 from PyQt4.QtGui import QLabel, QMessageBox, QColor
 from PyQt4.QtCore import Qt
 import qtify_maya_window as qtfy
 import subprocess
-
+import backend
 reload(backend)
 
 rootPath = osp.dirname(osp.dirname(__file__))

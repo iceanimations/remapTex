@@ -10,29 +10,29 @@ import re
 
 def getNormalMaps():
     items = []
-    try AttributeError:
+    try:
         for node in pc.ls(exactType=pc.nt.RedshiftNormalMap):
             if node.tex0.get():
                 items.append(NormalMap(node))
-    except: pass
+    except AttributeError: pass
     return items
 
 def getDomeLights():
     items = []
-    try AttributeError:
+    try:
         for node in pc.ls(exactType=pc.nt.RedshiftDomeLight):
             if node.tex0.get():
                 items.append(DomeLight(node))
-    except: pass
+    except AttributeError: pass
     return items
 
 def getIESLights():
     items = []
-    try AttributeError:
+    try:
         for node in pc.ls(exactType=pc.nt.RedshiftIESLight):
             if node.profile.get():
                 items.append(IESLight(node))
-    except: pass
+    except AttributeError: pass
     return items
 
 def getFileNodes():
@@ -44,11 +44,11 @@ def getFileNodes():
 
 def getRSSprites():
     items = []
-    try AttributeError:
+    try:
         for node in pc.ls(exactType=pc.nt.RedshiftSprite):
             if node.tex0.get():
                 items.append(RedshiftSprite(node))
-    except: pass
+    except AttributeError: pass
     return items
 
 class Texture(object):
