@@ -4,9 +4,10 @@ Created on Apr 9, 2016
 @author: qurban.ali
 '''
 import os.path as osp
-import sui
+#import sui
 
 from uiContainer import uic
+import cui
 from PyQt4.QtGui import QLabel, QMessageBox, QColor
 from PyQt4.QtCore import Qt
 import qtify_maya_window as qtfy
@@ -32,7 +33,7 @@ class Main(Form, Base):
         self.populate()
         
     def showMessage(self, **kwargs):
-        sui.showMessage(self, title='Remap Textures', **kwargs)
+        cui.showMessage(self, title='Remap Textures', **kwargs)
         
     def closeEvent(self, event):
         self.deleteLater()
