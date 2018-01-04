@@ -14,6 +14,7 @@ import qtify_maya_window as qtfy
 import subprocess
 import backend
 reload(backend)
+import appUsageApp
 
 rootPath = osp.dirname(osp.dirname(__file__))
 uiPath = osp.join(rootPath, 'ui')
@@ -29,6 +30,8 @@ class Main(Form, Base):
         
         self.refreshButton.clicked.connect(self.populate)
         self.remapButton.clicked.connect(self.remap)
+        
+        appUsageApp.updateDatabase('textureReloader')
         
         self.populate()
         
