@@ -8,6 +8,15 @@ import os.path as osp
 import os
 import re
 
+def getRedshiftProxyMeshes():
+    items = []
+    try:
+        for node in pc.ls(exactType=pc.nt.RedshiftProxyMesh):
+            if node.fileName.get():
+                items.append(RedshiftProxyMesh(node))
+    except AttributeError: pass
+    return items
+
 def getNormalMaps():
     items = []
     try:
@@ -55,25 +64,25 @@ class Texture(object):
     def __init__(self, node=None):
         super(Texture, self).__init__()
         self.node = node
-        
+
     def setPath(self, path):
         pass
-    
+
     def getPath(self):
         pass
-        
+
     def remap(self, path):
         path = osp.join(path, self.getFileName())
         if self.fileExists(path):
             self.setPath(path)
         else: return path
-        
+
     def getFileName(self):
         return osp.basename(self.getPath())
-    
+
     def getDirName(self):
         return osp.dirname(self.getPath())
-        
+
     def fileExists(self, filepath=None):
         if not filepath: filepath = self.getPath()
         basename = osp.basename(filepath)
@@ -92,6 +101,16 @@ class Texture(object):
     def isUDIM(self, path):
         return True if '<udim>' in path.lower() else False
 
+class RedshiftProxyMesh(Texture):
+    def __init__(self, node=None):
+        super(RedshiftProxyMesh, self).__init__(node)
+
+    def setPath(self, path):
+        self.node.fileName.set(path.replace('\\', '/'))
+
+    def getPath(self):
+        return osp.normpath(self.node.fileName.get())
+
 class RedshiftSprite(Texture):
     def __init__(self, node=None):
         super(RedshiftSprite, self).__init__(node)
@@ -108,27 +127,27 @@ class FileNode(Texture):
 
     def setPath(self, path):
         self.node.ftn.set(path.replace('\\', '/'))
-    
+
     def getPath(self):
         return osp.normpath(self.node.ftn.get())
 
 class NormalMap(Texture):
     def __init__(self, node=None):
         super(NormalMap, self).__init__(node)
-        
+
     def setPath(self, path):
         self.node.tex0.set(path.replace('\\', '/'))
-    
+
     def getPath(self):
         return osp.normpath(self.node.tex0.get())
 
 class IESLight(Texture):
     def __init__(self, node=None):
         super(IESLight, self).__init__(node)
-        
+
     def setPath(self, path):
         self.node.profile.set(path.replace('\\', '/'))
-    
+
     def getPath(self):
         return osp.normpath(self.node.profile.get())
 
